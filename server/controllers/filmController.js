@@ -15,7 +15,16 @@ let add_film = (req, res) => {
     res.status(200).json({...newFilm})
 }
 
+let delete_film = (req, res) => {
+    const db = req.app.get('database');
+    const {film_id} = req.params;
+    console.log('hit', req.params.film_id)
+    const deletedFilm = db.delete_film(film_id);
+    res.status(200).json(deletedFilm);
+}
+
 module.exports = {
     get_films,
-    add_film
+    add_film,
+    delete_film
 }

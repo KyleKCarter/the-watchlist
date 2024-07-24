@@ -1,0 +1,27 @@
+body {
+    overflow-y: scroll;
+    height: 100%;
+    margin: 0px auto;
+    padding: 0;
+    // border: 5px solid green;
+}
+
+.watchlist {
+
+}
+
+.body {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    border: 5px solid red;
+}
+
+.films {
+    border: 2px solid green;
+}
+
+.shows {
+    border: 2px solid blue;
+}
