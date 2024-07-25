@@ -9,11 +9,13 @@ const app = express();
 
 const {
     SERVER_PORT,
-    CONNECTION_STRING
+    CONNECTION_STRING,
+    API_KEY
 } = process.env
 
 //controllers
 const films = require('./controllers/filmController');
+const shows = require('./controllers/showController');
 
 //massive
 massive(CONNECTION_STRING)
@@ -31,5 +33,8 @@ app.use(cors());
 app.get('/films', films.get_films)
 app.post('/addfilm', films.add_film)
 app.delete('/deletefilm/:film_id', films.delete_film)
+
+//shows
+app.get('/shows/:name', shows.get_shows)
 
 app.listen(SERVER_PORT, () => console.log(`Running on ${SERVER_PORT}`));
