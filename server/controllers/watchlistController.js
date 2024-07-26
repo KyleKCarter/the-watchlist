@@ -37,9 +37,9 @@ let add_tv_show = (req, res) => {
 let remove_from_list = (req, res) => {
     const db = req.app.get('database');
     const {id} = req.params;
-    console.log('hit', req.params.id)
     const removedFromList = db.remove_from_list(id);
     res.status(200).json(removedFromList);
+    console.log('Film or Show removed')
 }
 
 module.exports = {

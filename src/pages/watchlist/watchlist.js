@@ -81,7 +81,7 @@ class Watchlist extends Component {
             alt="img not available"
           />
           <div className="film_description_container">
-            <h5 className="film_name">{val.title} ({releaseDate})</h5>
+            <h4 className="film_name">{val.title} ({releaseDate})</h4>
             <div className="film_description_second_row">
               <span className="release_date">{val.runtime}min.</span>
             </div>
@@ -99,7 +99,6 @@ class Watchlist extends Component {
     });
 
     let mappedShowsList = showsList.map((val) => {
-      console.log(val)
       let startDate = val.first_air_date.slice(0, 4);
       let endDate = val.last_air_date.slice(0, 4);
       let averageVote = Math.round(val.vote_average * 10) / 10;
@@ -107,7 +106,7 @@ class Watchlist extends Component {
           <div className="show_container">
               <img className="show_poster_image" src={`https://image.tmdb.org/t/p/w500${val.poster_path}`} alt="img not available" />
               <div className="show_description_container">
-                  <h3 className="show_name">{val.original_name}</h3>
+                  <h4 className="show_name">{val.name}</h4>
                 <div className="show_description_second_row">
                   <span className="first_air_date">{startDate}-{endDate}</span>
                 </div>
