@@ -6,7 +6,7 @@ class Home extends Component {
   render() {
     return (
       <body>
-        <h1 className="watchlist">The WatchList</h1>
+        <Link to='/watchlist'><h1 className="watchlist">The WatchList</h1></Link>
         <div className="body">
           <Link to='/films'><h2 className="films">Films</h2></Link>
           <Link to='/shows'><h2 className="shows">Shows</h2></Link>

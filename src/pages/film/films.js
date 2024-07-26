@@ -4,137 +4,88 @@ import axios from "axios";
 
 class Films extends Component {
   state = {
-    name: "",
-    img: "",
-    year: 0,
-    rating: 0,
-    films: [],
-  };
-
-  componentDidMount() {
-    console.log("Films page");
-    this.getFilms();
-  }
-
-  getFilms = () => {
-    axios
-      .get("/films")
-      .then((res) => {
-        this.setState({ films: res.data });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
-  reset = () => {
-    this.setState({ name: "", img: "", year: 0, rating: 0 });
-    this.getFilms();
+    filmName: "",
+    searchedFilms: [],
   };
 
   handlechange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  submit = async (e) => {
-    const { name, img, year, rating } = this.state;
-    e.preventDefault();
-    axios
-      .post("/addfilm", {
-        name,
-        img,
-        year,
-        rating,
-      })
-      .then((res) => {
-        this.reset();
-        console.log("response: ", res.data);
+  searchFilm = async (e) => {
+    const { filmName } = this.state;
+    e.preventDefault()
+    axios.get(`/films/${filmName}`)
+      .then((films) => {
+        this.setState({ searchedFilms: films.data.results})
       })
       .catch((error) => {
-        console.error(error);
-      });
-  };
+        console.log(error)
+      })
+  }
 
-  delete = async (id) => {
-    axios.delete(`/deletefilm/${id}`)
-    .then(res => {
-        console.log('Film removed', res.data);
-        this.reset();
-    })
-    .catch(error => {
-        console.error(error)
-    })
-  };
+  addFilmToList = async (movie_id) => {
+    axios.get(`/films/search/${movie_id}`)
+      .then((details) => {
+        const {poster_path, title, release_date, vote_average, runtime, overview} = details.data
+        axios.post('/watchlist/add_film', {
+          poster_path, title, release_date, vote_average, runtime, overview
+        })
+        .then(res => {
+          console.log("resopnse: ", res.data)
+        })
+        .catch(error => {
+          console.error(error)
+        })
+      })
+  }
 
   render() {
-    let mappedFilms = this.state.films.map((val) => {
+    let mappedSearchedFilms = this.state.searchedFilms.map((val) => {
+      console.log(val);
       return (
-        <div className="film">
-          <img src={val.film_img} className="film_image" />
-          <div className="film_content">
-            <h3 className="title">{val.name}</h3>
-            <div className="release_date">
-              Release Year: {val.year_released}
+        <div className="film_container">
+          <img
+            className="film_poster_image"
+            src={`https://image.tmdb.org/t/p/w500${val.poster_path}`}
+            alt="img not available"
+          />
+          <div className="film_description_container">
+            <h3 className="film_name">{val.title} ({val.release_date})</h3>
+            <div className="film_description_second_row">
+              <span className="release_date">{val.runtime}</span>
             </div>
-            <div className="rating">Our Rating: {val.rating}</div>
+            <span>({val.vote_average}/10)</span>
           </div>
-          <button className="delete_button" onClick={() => this.delete(val.film_id)}>
-            X
+          <span className="overview">{val.overview}</span>
+          <button
+            className="add_film_button"
+            onClick={() => this.addFilmToList(val.id)}
+          >
+            +
           </button>
         </div>
       );
     });
+
     return (
       <div className="page_content">
-        <h1>Films</h1>
-        <div className="add_film_content">
-          <div className="title_field">
-            <label>Title:</label>
+        <h1>Feature Films</h1>
+        <div className="search_films_container">
+          <div className="search_input_field_container">
             <input
-              value={this.state.name}
-              onChange={(e) => this.handlechange(e)}
+              className="search_input_field"
+              value={this.state.filmName}
+              onChangeCapture={(e) => this.handlechange(e)}
               type="text"
-              name="name"
+              name="filmName"
             />
           </div>
-          <div className="film_img">
-            <label>Image:</label>
-            <input
-              value={this.state.img}
-              onChange={(e) => this.handlechange(e)}
-              type="text"
-              name="img"
-            />
-          </div>
-          <div className="year_released">
-            <label>Release Date:</label>
-            <input
-              value={this.state.year}
-              onChange={(e) => this.handlechange(e)}
-              type="text"
-              name="year"
-            />
-          </div>
-          <div className="rating">
-            <label>Rating:</label>
-            <select
-              value={this.state.rating}
-              onChange={(e) => this.handlechange(e)}
-              name="rating"
-            >
-              <option value="--">--</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-          </div>
-          <button className="submit_button" onClick={this.submit}>
-            Submit
+          <button className="search_button" onClick={this.searchFilm}>
+            Search
           </button>
         </div>
-        <div className="films_container">{mappedFilms}</div>
+        <div className="searched_results_container">{mappedSearchedFilms}</div>
       </div>
     );
   }

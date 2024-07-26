@@ -1,3 +1,3 @@
-INSERT INTO films (name, film_img, year_released, rating)
-VALUES ($1, $2, $3, $4)
+INSERT INTO watchlist (type, poster_path, title, release_date, vote_average, runtime, overview)
+VALUES ($1, $2, $3, $4, $5, $6, $7)
 RETURNING *;

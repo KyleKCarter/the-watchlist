@@ -17,6 +17,21 @@ let get_shows = async(req, res) => {
         }))
 }
 
+let search_show_details = async(req, res) => {
+    const {id} = req.params;
+    await axios.get(`https://api.themoviedb.org/3/tv/${id}`, {headers: {
+        'accept': 'application/json',
+        'Authorization': `Bearer ${API_ACCESS_TOKEN}`
+    }})
+        .then((details => {
+            res.status(200).json(details.data)
+        })
+    ).catch((err => {
+        console.log(err)
+    }))
+}
+
 module.exports = {
-    get_shows
+    get_shows,
+    search_show_details
 }

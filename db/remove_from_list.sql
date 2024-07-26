@@ -1,0 +1,3 @@
+DELETE FROM watchlist
+WHERE id = $1
+RETURNING *;

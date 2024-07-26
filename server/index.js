@@ -16,6 +16,7 @@ const {
 //controllers
 const films = require('./controllers/filmController');
 const shows = require('./controllers/showController');
+const watchlist = require('./controllers/watchlistController');
 
 //massive
 massive(CONNECTION_STRING)
@@ -30,11 +31,18 @@ app.use(cors());
 
 // ENDPOINTS
 //films
-app.get('/films', films.get_films)
-app.post('/addfilm', films.add_film)
-app.delete('/deletefilm/:film_id', films.delete_film)
+app.get('/films/:name', films.get_films)
+app.get('/films/search/:id', films.search_film_details)
 
 //shows
 app.get('/shows/:name', shows.get_shows)
+app.get('/shows/search/:id', shows.search_show_details)
+
+//watchlist
+app.get('/watchlist/films', watchlist.get_films_list)
+app.get('/watchlist/shows', watchlist.get_shows_list)
+app.post('/watchlist/add_film', watchlist.add_film)
+app.post('/watchlist/add_tv_show', watchlist.add_tv_show)
+app.delete('/watchlist/remove/:id', watchlist.remove_from_list)
 
 app.listen(SERVER_PORT, () => console.log(`Running on ${SERVER_PORT}`));
