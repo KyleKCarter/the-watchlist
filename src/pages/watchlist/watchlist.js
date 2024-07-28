@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./watchlist.scss";
 import axios from "axios";
+import Nav from '../../components/nav/nav';
+
 
 class Watchlist extends Component {
   state = {
@@ -120,6 +122,7 @@ class Watchlist extends Component {
 
     return (
       <div>
+        <Nav />
         <h1>Watchlist</h1>
         <div className="list_container">
           <div className="film_list_container">

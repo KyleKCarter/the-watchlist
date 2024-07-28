@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./shows.scss";
 import axios from "axios";
+import Nav from '../../components/nav/nav';
+
 
 class Shows extends Component {
   state = {
@@ -17,7 +19,7 @@ class Shows extends Component {
     e.preventDefault()
     axios.get(`/shows/${tvName}`)
         .then((shows) => {
-            this.setState({ searchedShow: shows.data.results})
+            this.setState({ searchedShow: shows.data.results, tvName: ''})
         })
         .catch((error) => {
             console.error(error)
@@ -65,21 +67,24 @@ class Shows extends Component {
     })
 
     return (
-      <div className="page_content">
+      <div>
+        <Nav/>
         <h1>TV Shows</h1>
-        <div className="search_shows_container">
-          <div className="search_input_field_container">
-            <input
-              className="search_input_field"
-              value={this.state.tvName}
-              onChangeCapture={(e) => this.handlechange(e)}
-              type="text"
-              name="tvName"
-            />
+        <div className="page_content">
+          <div className="search_shows_container">
+            <div className="search_input_field_container">
+              <input
+                className="search_input_field"
+                value={this.state.tvName}
+                onChangeCapture={(e) => this.handlechange(e)}
+                type="text"
+                name="tvName"
+              />
+            </div>
+            <button className="search_button" onClick={this.searchShow}>Search</button>
           </div>
-          <button className="search_button" onClick={this.searchShow}>Search</button>
+          <div className="searched_results_container">{mappedSearchedShows}</div>
         </div>
-        <div className="searched_results_container">{mappedSearchedShows}</div>
       </div>
     );
   }
