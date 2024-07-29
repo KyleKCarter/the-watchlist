@@ -15,6 +15,7 @@ class Nav extends Component {
                         <li><a href="http://localhost:3000/films">Films</a></li>
                         <li><a href="http://localhost:3000/shows">TV Shows</a></li>
                         <li><a href="http://localhost:3000/watchlist">Watchlist</a></li>
+                        <li><a href="http://localhost:3000/next">Next?</a></li>
                     </ul>
                 </li>
             </ul>
