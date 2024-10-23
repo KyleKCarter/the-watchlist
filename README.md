@@ -1,4 +1,4 @@
-The Watchlist
+## The Watchlist
 
 This project allows users to create and manage a personalized watchlist of TV shows and movies. Users can track what they've watched, organize shows and films they want to see, and easily view their lists. It's designed to provide a simple and intuitive way to keep up with both upcoming and previously viewed content.
 
