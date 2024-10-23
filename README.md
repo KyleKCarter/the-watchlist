@@ -1,6 +1,12 @@
-# Getting Started with Create React App
+The Watchlist
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project allows users to create and manage a personalized watchlist of TV shows and movies. Users can track what they've watched, organize shows and films they want to see, and easily view their lists. It's designed to provide a simple and intuitive way to keep up with both upcoming and previously viewed content.
+
+Key Features:
+
+- Add TV shows and movies to your watchlist
+- Create a list of shows and films you've already watched
+- Organize and manage your lists with ease
 
 ## Available Scripts
 
